@@ -1,17 +1,48 @@
-
- import {configureStore} from "@reduxjs/toolkit"
-import cartReducer from "./CartSlice"
-import favouriteReducer from "./FavouriteSlice"
+import { configureStore, combineReducers } from "@reduxjs/toolkit"; // التعديل هنا
+import cartReducer from "./CartSlice";
+import favouriteReducer from "./FavouriteSlice";
 import authReducer from './AuthSlice'
+import { 
+  persistStore, 
+  persistReducer, 
+  FLUSH, 
+  REHYDRATE, 
+  PAUSE, 
+  PERSIST, 
+  PURGE, 
+  REGISTER 
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; 
 
-  export const store = configureStore({
-    reducer:{
-        cart: cartReducer ,
-        favourite:favouriteReducer ,
-        auth: authReducer
-        
-    }
- })
+// 1. تجميع الـ Reducers
+const rootReducer = combineReducers({
+  cart: cartReducer,
+  favourite: favouriteReducer,
+  auth : authReducer
+});
 
- export type RootState = ReturnType<typeof store.getState>
- export type AppDispatch = typeof store.dispatch
+// 2. إعدادات الـ Persist
+const persistConfig = {
+  key: 'root',          
+  storage: storage?.default ?? storage,           
+  whitelist: ['cart', 'favourite' , 'auth' ]   
+};
+
+// 3. إنشاء الريديوسر المحصن
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

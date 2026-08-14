@@ -1,15 +1,16 @@
 import type { LoginResponse, Product } from "../Types/Product"
 import { api } from "./axios"
 
-export const getProducts = async (page:number): Promise<Product[]> => {
+export const getProducts = async (pageParam:number): Promise<Product[]> => {
   const limit = 10
-  const skip = (page-1) * limit
+  const skip = (pageParam-1) * limit
   const { data } = await api.get<Product[]>(`/products` ,{params:{limit , skip}})
   return data
 }
 
 
 export const getElementById = async (id: number): Promise<Product> =>{ 
+
   const {data} = await api.get<Product>(`/products/${id}`) 
   return data 
 }
@@ -37,3 +38,12 @@ export const getElementByCategory = async (category:string , page:number) :Promi
   const {data} = await api.get<Product[]> (`/products/category/${category}` , {params:{limit , skip}})
   return data
 }
+
+
+export const searchProducts = async (search : string , page : number) /* : Promise<Product[]>*/=>{
+  const limit = 10 
+  const skip = (page-1) * limit 
+  const {data} = await api.get(`/products/search` , {params:{q : search , limit , skip}})
+  return data
+}
+

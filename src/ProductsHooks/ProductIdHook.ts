@@ -1,11 +1,37 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery  } from "@tanstack/react-query"
 import { getElementById } from "../Api/products.api"
+export const useProductById = (
+  id: number
+) => {
 
-export const useProductById = (id:number) => {
-    return useQuery({
-        queryKey: ['product', id],
-        queryFn: () => getElementById(id)
-    })
+  // const queryClient =
+  //   useQueryClient()
+
+  return useQuery({
+
+    queryKey: ['product', id],
+
+    queryFn: () =>
+      getElementById(id),
+
+    // initialData: () => {
+    //     console.log("FROM INITIAL DATA")
+    //   const productsCache =
+    //     queryClient.getQueryData([
+    //       "products",
+    //       "all",
+    //       1
+    //     ])
+
+    //   return productsCache?.products?.find(
+    //     (product ) =>
+    //       product.id === id
+    //   )
+
+    // }
+
+  })
+
 }
 
 // import { useQuery } from '@tanstack/react-query';

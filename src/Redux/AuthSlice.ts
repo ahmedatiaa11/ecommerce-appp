@@ -2,13 +2,13 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 import type { RootState } from "./Store"
 
 
-const tokenFromStorage = localStorage.getItem('token')
+// const tokenFromStorage = localStorage.getItem('token')
 
  type authState = {
     token : string | null
 }
 const initialState:authState ={
-    token : tokenFromStorage || null
+    token : null
 }
 
  const authSlice = createSlice({

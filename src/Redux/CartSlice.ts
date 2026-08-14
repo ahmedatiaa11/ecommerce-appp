@@ -76,16 +76,16 @@ export default cartSlice.reducer
 export const selectCartItems = (state: any) => state.cart.items
 
 export const selectCartTotalQuantity = (state: any) => 
-  state.cart.items.reduce((total, item) => total + item.quantity, 0) 
+  state.cart.items.reduce((total : number , item :any) => total + item.quantity, 0) 
 
 export const selectCartTotalPrice = (state: any) =>
   state.cart.items.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total :number, item:any) => total + item.price * item.quantity,
     0
   )
 
 export const selectIsInCart =
   (id: number) => (state: any) =>
-    state.cart.items.some((item) => item.id === id)
+    state.cart.items.some((item:any) => item.id === id)
 
 

@@ -2,6 +2,7 @@
 import { useAppDispatch, useAppSelector } from "../Redux/ReduxHooks"
 import { clearCart, decreaseQuantity, increaseQuantity, removeFromCart, selectCartTotalPrice, selectCartTotalQuantity } from "../Redux/CartSlice"
 import  {  type RootState } from "../Redux/Store"
+import { DeleteProductDialog } from "../Components/UI/DeleteProductDialog"
 
 export default function CartPage() {
     const dispatch = useAppDispatch()
@@ -72,12 +73,12 @@ export default function CartPage() {
               </div>
 
               {/* remove */}
-              <button
-                onClick={() => dispatch(removeFromCart(item.id))}
-                className="text-red-500 hover:text-red-700 font-semibold transition"
-              >
-                Remove
-              </button>
+             <div>
+                              <DeleteProductDialog id={item.id}/>
+
+
+             </div>
+
             </div>
           ))}
         </div>

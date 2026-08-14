@@ -20,10 +20,9 @@ export default function LoginPage() {
       console.log("login data :" , data)
         mutate(data , {
           onSuccess :(res) => {
-            console.log("res :" , res)
-            console.log('token' , res.accessToken)
-            localStorage.setItem('token' , res.accessToken)
-            // toast.success('Login successful')
+            // console.log("res :" , res)
+            // console.log('token' , res.accessToken)
+            // localStorage.setItem('token' , res.accessToken) 
             showSuccess("Login successful")
             dispatch(setToken(res.accessToken))
             navigate(from , {replace:true})
