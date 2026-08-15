@@ -3,5 +3,6 @@
     background-color: rgba(0, 0, 0, 0.896);
 } */
  html{
-    scroll-behavior: smooth
+    scroll-behavior: smooth ;
+    overflow-y: scroll;
  }

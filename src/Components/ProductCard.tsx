@@ -5,7 +5,7 @@ import { selectIsFavourite, toogleFavourite } from "../Redux/FavouriteSlice";
 import { Link } from "react-router-dom";
 import { showSuccess } from "../Utlies/ToastMsg";
 import {  motion } from "motion/react";
-import { productCardVariants } from "../animations/productCardVariants";
+import { Heart } from "lucide-react";
 type Props = {
   product: Product;
 };
@@ -16,10 +16,8 @@ export default function ProductCard({ product }: Props) {
   const dispatch = useAppDispatch();
   const isFavourite = useAppSelector(selectIsFavourite(product.id));
   return (
-    <motion.div
-      variants={productCardVariants}
-    >
-      <div className="border border-gray-200 rounded-2xl p-4 bg-white shadow-2xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+    <motion.div>
+      <div className="border border-gray-200 rounded-2xl p-4 bg-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
         <Link
           to={`/products/${product.id}`}
           className="flex flex-col items-center"
@@ -32,7 +30,7 @@ export default function ProductCard({ product }: Props) {
             />
           </div>
 
-          <h3 className="font-semibold text-lg text-center mt-2 line-clamp-2">
+          <h3 className=" text-black/80 text-xl font-mono text-center m-3">
             {product.title}
           </h3>
         </Link>
@@ -45,14 +43,14 @@ export default function ProductCard({ product }: Props) {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-5 mt-4">
           <button
             onClick={() => {
               dispatch(addToCart(product));
               // toast.success("Added to cart ✅")
               showSuccess("Added to cart ✅", { id: "cart-toast" });
             }}
-            className="flex-1 bg-black text-white px-3 py-2 rounded-lg hover:bg-gray-500 transition active:scale-95"
+            className="flex-1 bg-cyan-800 text-white px-3 py-2 rounded-lg hover:bg-cyan-600 transition active:scale-95"
           >
             Add
           </button>
@@ -64,10 +62,12 @@ export default function ProductCard({ product }: Props) {
               showSuccess("Added to favourite ❤️", { id: "favourite-toast" });
             }}
             className={`px-3 py-2 rounded-lg text-white transition active:scale-95 ${
-              isFavourite ? "bg-red-400" : "bg-red-400 hover:bg-red-600"
+              isFavourite 
+  ? "bg-rose-500 text-white shadow-md shadow-rose-500/30 scale-105" 
+  : "bg-black/30 backdrop-blur-md text-white/80 hover:bg-black/50 hover:text-white border border-white/10"
             }`}
           >
-            ❤️
+            <Heart/>
           </button>
         </div>
       </div>

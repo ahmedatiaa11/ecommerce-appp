@@ -4,6 +4,8 @@ import { selectCartTotalQuantity } from "../Redux/CartSlice";
 import { selectFavorites } from "../Redux/FavouriteSlice";
 import { isAuth, logOut } from "../Redux/AuthSlice";
 import Sheet from "../Components/Sheet";
+import Container from "../ReusableComp/Container";
+import { Heart, HeartCrack, HeartIcon } from "lucide-react";
 
 
 export default function Navbar() {
@@ -13,41 +15,49 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
 
   return (
+    <header>
+    <Container>
     <nav className="sticky top-0 left-0 z-50 flex items-center justify-between bg-white/50 px-6 py-4 text-white shadow-md backdrop-blur-md">
       {/* Mobile Menu */}
+      
       <div className="lg:hidden">
         <Sheet /> 
       </div>
 
       {/* Logo */}
-      <h1 className="cursor-pointer text-black text-2xl font-bold tracking-wide hove:text-yellow-400 transition">
-        AHMED'S SHOP
+      <h1 className=" cursor-pointer text-black 
+      text-2xl font-light   hover:text-cyan-500 transition tracking-widest">
+        AHMED3T SHOP
+
+
       </h1>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center gap-6">
+      <div className="hidden md:flex items-center  gap-6">
 
         <NavLink
           to="/products"
           className={({ isActive }) =>
-            isActive
-              ? "text-cyan-500 font-semibold text-2xl "
-              : "hover:text-gray-300 text-2xl"
+             ` transition-colors text-black  duration-300 font-light text-2xl
+           tracking-widest  hover:text-cyan-600
+        ${isActive
+              ? " border-b-2   "
+              : ' ' } ` 
           }
         >
-          Home
+          HOME
         </NavLink>
 
         <NavLink
           to="/favouites"
-          className="relative group"
+          className="relative group "
         >
-          <span className="text-lg transition group-hover:scale-110">
-            ❤️
-          </span>
+          <div className="text-2xl text-red-500">
+            <Heart className="text-black"/>
+          </div>
 
           {favourites.length > 0 && (
-            <span className="absolute -right-3 -top-2 rounded-full bg-red-500 px-1.5 py-0.5 text-xs">
+            <span className="absolute -right-4 -top-3 rounded-full bg-red-500 px-1.5 py-0.5 text-xs">
               {favourites.length}
             </span>
           )}
@@ -63,12 +73,12 @@ export default function Navbar() {
           to="/cart"
           className="relative group "
         >
-          <span className="text-lg  transition group-hover:scale-110">
+          <span className="text-2xl  transition group-hover:scale-110">
             🛒
           </span>
 
           {cartCount > 0 && (
-            <span className="absolute -right-3 -top-2 rounded-full bg-green-500 px-1.5 py-0.5 text-xs">
+            <span className="absolute -right-3 -top-2 rounded-full bg-cyan-500 px-1.5 py-0.5 text-xs">
               {cartCount}
             </span>
           )}
@@ -85,14 +95,18 @@ export default function Navbar() {
         ) : (
           <button
             onClick={() => dispatch(logOut())}
-            className="hidden rounded-lg bg-red-500 px-4 py-1.5 transition hover:bg-red-600 active:scale-95 lg:block"
+            className="hidden rounded-2xl bg-black/50 px-3 py-1.5  transition hover:bg-cyan-600 
+             lg:block"
           >
-            Logout
+            LogOut
           </button>
         )}
 
       </div>
+     
     </nav>
+     </Container>
+     </header>
   );
 }
 

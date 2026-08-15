@@ -106,9 +106,9 @@ export default function ProductsPage() {
 
 
         </div>
-        <h1 className="mx-auto text-3xl p-3 bg-amber-400 rounded-4xl  ">
+        {/* <h1 className="mx-auto text-3xl p-3 bg-amber-400 rounded-4xl  ">
           Products
-        </h1>
+        </h1> */}
 
         <ProductList products={allProducts} />
 
