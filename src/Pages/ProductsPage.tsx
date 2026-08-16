@@ -85,6 +85,17 @@ export default function ProductsPage() {
         <ProductList products={allProducts} />
 
         <div ref={elementRef}>Loading ...</div>
+        {/* {hasNextPage && (
+  <div className="flex justify-center my-10">
+    <button
+      className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+      onClick={() => fetchNextPage()} // هنا بننادي الدالة مباشرة
+      disabled={isFetchingNextPage}  // الزرار بيتقفل لو إحنا حالياً بنحمل بيانات
+    >
+      {isFetchingNextPage ? "Loading..." : "Load More"}
+    </button>
+  </div>
+)} */}
       </div>
       </Container>
 
