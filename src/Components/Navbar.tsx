@@ -7,6 +7,8 @@ import Sheet from "../Components/Sheet";
 import Container from "../ReusableComp/Container";
 import { Heart, HeartCrack, HeartIcon, Search } from "lucide-react";
 import { SearchInput } from "./UI/Search";
+import { fadeUp } from "../animations/fadeUp";
+import { motion } from "framer-motion";
 
 
 export default function Navbar() {
@@ -18,7 +20,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 left-0 z-30  " >
     <Container>
-    <nav className=" z- flex items-center rounded-2xl justify-between overflow-hidden 
+    <motion.nav {...fadeUp(0)} className=" z- flex items-center rounded-2xl justify-between overflow-hidden 
      bg-white/50 px-3 lg:px-6 py-2 md:py-4   text-white shadow-md backdrop-blur-lg">
       {/* Mobile Menu */}
       
@@ -68,7 +70,7 @@ export default function Navbar() {
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-1 md:gap-4">
+      <div className="flex items-center gap-2.5 md:gap-4">
 
         {/* Cart (كل الشاشات) */}
         <NavLink
@@ -112,7 +114,7 @@ export default function Navbar() {
 
       </div>
      
-    </nav>
+    </motion.nav>
      </Container>
      </header>
   );
