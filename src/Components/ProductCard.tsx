@@ -4,7 +4,7 @@ import { addToCart } from "../Redux/CartSlice";
 import { selectIsFavourite, toogleFavourite } from "../Redux/FavouriteSlice";
 import { Link } from "react-router-dom";
 import { showSuccess } from "../Utlies/ToastMsg";
-import {  motion } from "motion/react";
+import { motion } from "motion/react";
 import { Heart } from "lucide-react";
 type Props = {
   product: Product;
@@ -17,7 +17,7 @@ export default function ProductCard({ product }: Props) {
   const isFavourite = useAppSelector(selectIsFavourite(product.id));
   return (
     <motion.div>
-      <div className="border border-gray-200 rounded-2xl p-4 bg-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+      <div className="border border-gray-200 shadow-2xl rounded-3xl p-4 bg-white transition-all duration-300 transform hover:-translate-y-1">
         <Link
           to={`/products/${product.id}`}
           className="flex flex-col items-center"
@@ -37,9 +37,9 @@ export default function ProductCard({ product }: Props) {
 
         {/* Price + Rating */}
         <div className="flex justify-between items-center mt-2 p-2">
-          <p className="font-bold text-black text-lg">${product.price}</p>
+          <p className="font-normal text-black text-lg">${product.price}</p>
 
-          <p className="text-xs text-gray-500">⭐ {product.rating}</p>
+          <p className="text-sm text-gray-500">⭐ {product.rating}</p>
         </div>
 
         {/* Buttons */}
@@ -62,12 +62,12 @@ export default function ProductCard({ product }: Props) {
               showSuccess("Added to favourite ❤️", { id: "favourite-toast" });
             }}
             className={`px-3 py-2 rounded-lg text-white transition active:scale-95 ${
-              isFavourite 
-  ? "bg-rose-500 text-white shadow-md shadow-rose-500/30 scale-105" 
-  : "bg-black/30 backdrop-blur-md text-white/80 hover:bg-black/50 hover:text-white border border-white/10"
+              isFavourite
+                ? "bg-rose-500 text-white shadow-md shadow-rose-500/30 scale-105"
+                : "bg-black/30 backdrop-blur-md text-white/80 hover:bg-black/50 hover:text-white border border-white/10"
             }`}
           >
-            <Heart/>
+            <Heart />
           </button>
         </div>
       </div>

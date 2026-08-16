@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 
 // import { Pagination } from "swiper/modules";
 import "swiper/css/pagination";
+import Container from "../ReusableComp/Container";
 
 
 
@@ -29,33 +30,15 @@ export default function ProductsPage() {
   const selectedCategory = searchParams.get("category") || "all";
   // const currentPage = Number(searchParams.get("page")) || 1
 
-  // const search = searchParams.get("search") || ""
-  const [searchInput, setSearchInput] = useState(
-    searchParams.get("search") || "",
-  );
-  const debouncedSearch = useDebounce(searchInput, 500);
-  // const queryClient =  useQueryClient()
-
-  useEffect(() => {
-    setSearchParams((prev) => {
-      if (debouncedSearch) {
-        prev.set("search", debouncedSearch);
-      } else {
-        prev.delete("search");
-      }
-      return prev;
-    });
-  }, [debouncedSearch]);
+  const search = searchParams.get("q") || ""
 
   const {
     data, 
     fetchNextPage, 
     hasNextPage, 
     isFetchingNextPage, 
-    isLoading, 
-  } = useProducts(selectedCategory, debouncedSearch);
+    } = useProducts(selectedCategory, search);
 
-  // console.log("pages of data ", data?.pages);
   const allProducts = data?.pages.flatMap((page) => page.products) || [];
   console.log("allProducts", allProducts);
 
@@ -74,13 +57,14 @@ export default function ProductsPage() {
 
   return (
     <>
-      
+      <Container>
 
       <div className=" flex flex-col gap-5 ">
         
-        <div className=" flex w-full justify-around py-3 ">
+        
+        <div className=" flex w-full justify-center py-3 ">
          
-          <div>
+          
             <CategoryFilter
               categories={categories}
               selectedCategory={selectedCategory}
@@ -93,27 +77,15 @@ export default function ProductsPage() {
                 });
               }}
             />
-          </div>
-
-
-          <div className="  ">
-            <SearchInput
-              value={searchInput}
-              onSearch={(value) => setSearchInput(value)}
-            />
-          </div>
-
-
-
+          
         </div>
-        {/* <h1 className="mx-auto text-3xl p-3 bg-amber-400 rounded-4xl  ">
-          Products
-        </h1> */}
+      
 
         <ProductList products={allProducts} />
 
         <div ref={elementRef}>Loading ...</div>
       </div>
+      </Container>
 
      
     </>

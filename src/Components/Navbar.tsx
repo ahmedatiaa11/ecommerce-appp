@@ -5,7 +5,8 @@ import { selectFavorites } from "../Redux/FavouriteSlice";
 import { isAuth, logOut } from "../Redux/AuthSlice";
 import Sheet from "../Components/Sheet";
 import Container from "../ReusableComp/Container";
-import { Heart, HeartCrack, HeartIcon } from "lucide-react";
+import { Heart, HeartCrack, HeartIcon, Search } from "lucide-react";
+import { SearchInput } from "./UI/Search";
 
 
 export default function Navbar() {
@@ -82,6 +83,11 @@ export default function Navbar() {
               {cartCount}
             </span>
           )}
+        </NavLink>
+        
+        <NavLink to={"search"}>
+          {/* <SearchInput/> */}
+          <Search className="text-black/50"/>
         </NavLink>
 
         {/* Desktop Auth */}

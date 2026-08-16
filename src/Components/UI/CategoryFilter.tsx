@@ -25,14 +25,14 @@ export default function CategoryFilter({
 }: catProps) {
   return (
     
-    <div className="  mx-auto">
+    <div className= " ">
       <Select
         value={selectedCategory}
         onValueChange={onCategoryChange}
       >
         <SelectTrigger
         >
-          <SelectValue className="items-center" />
+          <SelectValue className="items-center  " />
         </SelectTrigger>
 
         <SelectContent className=" rounded-lg shadow-lg bg-white">

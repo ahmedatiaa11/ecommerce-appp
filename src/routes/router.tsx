@@ -9,6 +9,7 @@ import LoginPage from "../Pages/LoginPage"
 
 
 import { createBrowserRouter, Navigate } from "react-router-dom"
+import { SearchInput } from "../Components/UI/Search"
 
 
 export const router = createBrowserRouter([
@@ -54,6 +55,9 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />
+      } , {
+        path:"search" ,
+        element:<SearchInput/>
       }
     ]
   }
