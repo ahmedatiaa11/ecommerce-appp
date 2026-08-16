@@ -12,7 +12,7 @@ import { Button } from "../../@/components/ui/button"
 // import { Input } from "../../@/components/ui/input"
 // import { Label } from "../../@/components/ui/label"
 import { NavLink } from "react-router-dom"
-import { Heart, House, LogIn, Menu, ShoppingCart } from "lucide-react"
+import { Heart, House, LogIn, Menu, MenuIcon, ShoppingCart } from "lucide-react"
 import { useAppDispatch, useAppSelector } from "../Redux/ReduxHooks"
 import {  isAuth, logOut } from "../Redux/AuthSlice"
 
@@ -26,10 +26,10 @@ export default function sheetForTesting() {
      
         <div className="flex justify-center items-center">
     <Sheet  >
-      <SheetTrigger className="m-3" render={<Button variant="outline"><Menu/></Button>} /> 
+      <SheetTrigger className="m-3" render={<Menu className="" />} /> 
       <SheetContent side="left" >
         <SheetHeader>
-          <SheetTitle className=" text-3xl text-white"><Menu/></SheetTitle>
+          {/* <SheetTitle className=" text-3xl text-white"><Menu /></SheetTitle> */}
         </SheetHeader>
        <nav className="flex flex-col gap-4 m-2">
 

@@ -16,25 +16,26 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
 
   return (
-    <header >
+    <header className="sticky top-0 left-0 z-30  " >
     <Container>
-    <nav className="sticky top-0 left-0 z-50 flex items-center rounded-2xl justify-between bg-white/50 px-6 py-4 text-white shadow-md backdrop-blur-md">
+    <nav className=" z- flex items-center rounded-2xl justify-between overflow-hidden 
+     bg-white/50 px-3 lg:px-6 py-2 md:py-4   text-white shadow-md backdrop-blur-lg">
       {/* Mobile Menu */}
       
-      <div className="lg:hidden">
-        <Sheet /> 
+      <div className="lg:hidden text-black ">
+        <Sheet   /> 
       </div>
 
       {/* Logo */}
       <h1 className=" cursor-pointer text-black 
-      text-2xl font-light   hover:text-cyan-500 transition tracking-widest">
-        AHMED3T SHOP
+      text-2xl font-light   hover:text-cyan-500 transition  tracking-widest">
+        AHM3T SHOP
 
 
       </h1>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center  gap-6">
+      <div className="hidden lg:flex items-center  gap-6">
 
         <NavLink
           to="/products"
@@ -67,7 +68,7 @@ export default function Navbar() {
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-1 md:gap-4">
 
         {/* Cart (كل الشاشات) */}
         <NavLink
