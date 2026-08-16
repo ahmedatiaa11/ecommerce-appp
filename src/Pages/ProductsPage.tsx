@@ -62,7 +62,7 @@ export default function ProductsPage() {
       <div className=" flex flex-col gap-5 ">
         
         
-        <div className=" flex w-full justify-cente py-3 ml-12 ">
+        <div className="   justify-around py-3 ml-3 mt-1  md:ml-12 ">
          
           
             <CategoryFilter
@@ -77,6 +77,7 @@ export default function ProductsPage() {
                 });
               }}
             />
+            {/* <h1 className=""> All Products</h1> */}
           
         </div>
       

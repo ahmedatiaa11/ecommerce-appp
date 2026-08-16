@@ -12,7 +12,7 @@ import { Button } from "../../@/components/ui/button"
 // import { Input } from "../../@/components/ui/input"
 // import { Label } from "../../@/components/ui/label"
 import { NavLink } from "react-router-dom"
-import { Heart, House, LogIn, Menu, MenuIcon, ShoppingCart } from "lucide-react"
+import { Heart, House, LogIn, LogOut, Menu, MenuIcon, ShoppingCart } from "lucide-react"
 import { useAppDispatch, useAppSelector } from "../Redux/ReduxHooks"
 import {  isAuth, logOut } from "../Redux/AuthSlice"
 
@@ -53,17 +53,17 @@ export default function sheetForTesting() {
          {!isAuthi ? (
                   <NavLink
                     to="/login"
-                    className=" rounded-lg bg-yellow-400 px-4 py-1.5 font-medium text-black transition hover:bg-yellow-300 "
+                    className="flex gap-3 rounded-lg  px-4 py-1.5 font-medium text-gray-700 hover:bg-gray-300 transition  "
                   >           <LogIn size={20} />
-
-                    Login
+                    <span>  Login </span>
                   </NavLink>
                 ) : (
                   <button
                     onClick={() => dispatch(logOut())}
-                    className="hiden rounded-lg bg-red-500 px-4 py-1.5 transition hover:bg-red-600 active:scale-95 "
+                    className=" flex gap-3 items-center rounded-lg  px-4 py-1.5 transition text-gray-700 hover:bg-gray-300 active:scale-95 "
                   >
-                    Logout
+                    <LogOut/>
+                  <span> Logout </span>  
                   </button>
                 )}
         {/* <NavLink to="/login" className=" flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-300 transition">
