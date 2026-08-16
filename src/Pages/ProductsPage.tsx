@@ -62,7 +62,7 @@ export default function ProductsPage() {
       <div className=" flex flex-col gap-5 ">
         
         
-        <div className=" flex w-full justify-center py-3 ">
+        <div className=" flex w-full justify-cente py-3 ml-12 ">
          
           
             <CategoryFilter

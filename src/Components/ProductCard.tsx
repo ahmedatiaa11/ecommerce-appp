@@ -30,7 +30,7 @@ export default function ProductCard({ product }: Props) {
             />
           </div>
 
-          <h3 className=" text-black/80 text-xl font-mono text-center m-3">
+          <h3 className=" text-black/80 text-xl font-mono text-center my-2 h-11">
             {product.title}
           </h3>
         </Link>

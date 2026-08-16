@@ -16,9 +16,9 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
 
   return (
-    <header>
+    <header >
     <Container>
-    <nav className="sticky top-0 left-0 z-50 flex items-center justify-between bg-white/50 px-6 py-4 text-white shadow-md backdrop-blur-md">
+    <nav className="sticky top-0 left-0 z-50 flex items-center rounded-2xl justify-between bg-white/50 px-6 py-4 text-white shadow-md backdrop-blur-md">
       {/* Mobile Menu */}
       
       <div className="lg:hidden">
@@ -94,7 +94,8 @@ export default function Navbar() {
         {!isAuthi ? (
           <NavLink
             to="/login"
-            className="hidden rounded-lg bg-yellow-400 px-4 py-1.5 font-medium text-black transition hover:bg-yellow-300 lg:block"
+            className="hidden rounded-lg   px-5 py-1.5 font-normal text-lg shadow-lg  text-black 
+             border-black/40 transition duration-400 hover:bg-cyan-600 hover:text-white lg:block"
           >
             Login
           </NavLink>
