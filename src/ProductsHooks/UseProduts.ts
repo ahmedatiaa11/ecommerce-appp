@@ -29,6 +29,7 @@ export const useProducts = (
     },
 
     initialPageParam: 1,
+    enabled: category !== "" || search.trim().length > 0,
 
     getNextPageParam:
       (lastPage, pages) => {
@@ -50,6 +51,19 @@ export const useProducts = (
 
   })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -81,17 +95,5 @@ export const useProducts = (
 //       }
 //       return undefined; // وقف شحن
 //     }
-//   }) 
-// }
-
-// import { getProductsQuery } from './../Api/getProductsQuery';
-// import { keepPreviousData, useQuery } from "@tanstack/react-query"
-// // import { getElementByCategory, getProducts, searchProducts } from "../Api/products.api"
-// import { type Product } from "../Types/Product"
-
-// export const useProducts = (category:string , page:number , debouncedSearch : string) => {
-//    return useQuery<Product[]>({
-//     ...getProductsQuery({category , page , search : debouncedSearch}),
-//     placeholderData: keepPreviousData
 //   }) 
 // }

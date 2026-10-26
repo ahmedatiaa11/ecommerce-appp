@@ -13,6 +13,7 @@ export const useProductById = (
 
     queryFn: () =>
       getElementById(id),
+    enabled: Number.isInteger(id) && id > 0,
 
     // initialData: () => {
     //     console.log("FROM INITIAL DATA")
@@ -44,5 +45,4 @@ export const useProductById = (
 //         enabled: !!id ,
 //     })
 // }
-
 

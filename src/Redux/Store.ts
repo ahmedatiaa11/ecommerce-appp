@@ -14,6 +14,9 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; 
 
+const persistStorage =
+  (storage as typeof storage & { default?: typeof storage }).default ?? storage;
+
 // 1. تجميع الـ Reducers
 const rootReducer = combineReducers({
   cart: cartReducer,
@@ -24,7 +27,7 @@ const rootReducer = combineReducers({
 // 2. إعدادات الـ Persist
 const persistConfig = {
   key: 'root',          
-  storage: storage?.default ?? storage,           
+  storage: persistStorage,
   whitelist: ['cart', 'favourite' , 'auth' ]   
 };
 

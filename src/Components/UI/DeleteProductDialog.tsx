@@ -24,8 +24,7 @@ export const DeleteProductDialog = ({ id }: props) => {
     <Dialog>
       <DialogTrigger>
         <button className="text-red-500 hover:text-red-700 font-semibold transition text-lg">
-          {" "}
-          Delete{" "}
+          Delete
         </button>
       </DialogTrigger>
       <DialogContent
@@ -45,7 +44,7 @@ export const DeleteProductDialog = ({ id }: props) => {
         </DialogDescription>
         <DialogFooter>
           <DialogClose>
-            <Button variant="outline">close</Button>
+            <Button variant="outline">Close</Button>
           </DialogClose>
           <button onClick={() => handelDelete(id)}> Delete </button>
         </DialogFooter>

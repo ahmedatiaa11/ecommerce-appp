@@ -1,76 +1,102 @@
-import { type Product } from "../Types/Product";
+import { Heart, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../Redux/ReduxHooks";
 import { addToCart } from "../Redux/CartSlice";
 import { selectIsFavourite, toogleFavourite } from "../Redux/FavouriteSlice";
-import { Link } from "react-router-dom";
+import type { Product } from "../Types/Product";
 import { showSuccess } from "../Utlies/ToastMsg";
-import { motion } from "motion/react";
-import { Heart } from "lucide-react";
-type Props = {
-  product: Product;
-};
+
+type Props = { product: Product };
+const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 
 export default function ProductCard({ product }: Props) {
-  // console.log("ProductCard", product.id);
-
   const dispatch = useAppDispatch();
   const isFavourite = useAppSelector(selectIsFavourite(product.id));
+  const discountedPrice =
+    product.discountPercentage && product.discountPercentage > 0
+      ? product.price / (1 - product.discountPercentage / 100)
+      : null;
+
   return (
-    <motion.div>
-      <div className="border border-gray-200 shadow-2xl rounded-3xl p-4 bg-white transition-all duration-300 transform hover:-translate-y-1">
+    <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10">
+      <div className="relative flex h-56 items-center justify-center overflow-hidden rounded-2xl bg-slate-50 p-5">
         <Link
           to={`/products/${product.id}`}
-          className="flex flex-col items-center"
+          className="flex h-full w-full items-center justify-center"
+          aria-label={`View ${product.title}`}
         >
-          <div className="overflow-hidden rounded-xl flex justify-center w-full ">
-            <img
-              src={product.thumbnail}
-              alt={product.title}
-              className="h-40 object-contain mb-4 transition-transform duration-300 group-hover:scale-115"
-            />
-          </div>
-
-          <h3 className=" text-black/80 text-xl font-mono text-center my-2 h-11">
-            {product.title}
-          </h3>
+          <img
+            src={product.thumbnail || product.image}
+            alt={product.title}
+            loading="lazy"
+            className="h-full w-full object-contain transition duration-500 group-hover:scale-105"
+          />
         </Link>
-
-        {/* Price + Rating */}
-        <div className="flex justify-between items-center mt-2 p-2">
-          <p className="font-normal text-black text-lg">${product.price}</p>
-
-          <p className="text-sm text-gray-500">⭐ {product.rating}</p>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex gap-5 mt-4">
-          <button
-            onClick={() => {
-              dispatch(addToCart(product));
-              // toast.success("Added to cart ✅")
-              showSuccess("Added to cart ✅", { id: "cart-toast" });
-            }}
-            className="flex-1 bg-cyan-800 text-white px-3 py-2 rounded-lg hover:bg-cyan-600 transition active:scale-95"
-          >
-            Add
-          </button>
-
-          <button
-            onClick={() => {
-              dispatch(toogleFavourite(product));
-              // toast.success("Added to favourite ❤️")
-              showSuccess("Added to favourite ❤️", { id: "favourite-toast" });
-            }}
-            className={`px-3 py-2 rounded-lg text-white transition active:scale-95 ${
-              isFavourite
-                ? "bg-rose-500 text-white shadow-md shadow-rose-500/30 scale-105"
-                : "bg-black/30 backdrop-blur-md text-white/80 hover:bg-black/50 hover:text-white border border-white/10"
-            }`}
-          >
-            <Heart />
-          </button>
-        </div>
+        {product.discountPercentage && product.discountPercentage > 0 ? (
+          <span className="absolute left-3 top-3 rounded-full bg-emerald-800 px-3 py-1 text-xs font-semibold text-white">
+            {Math.round(product.discountPercentage)}% off
+          </span>
+        ) : null}
+        {product.stock === 0 && (
+          <span className="absolute bottom-3 left-3 rounded-full bg-slate-900/85 px-3 py-1 text-xs font-semibold text-white">
+            Out of stock
+          </span>
+        )}
+        <button
+          type="button"
+          disabled={product.stock === 0}
+          onClick={() => {
+            dispatch(toogleFavourite(product));
+            showSuccess(isFavourite ? "Removed from favorites" : "Added to favorites", {
+              id: "favourite-toast",
+            });
+          }}
+          aria-label={isFavourite ? `Remove ${product.title} from favorites` : `Add ${product.title} to favorites`}
+          aria-pressed={isFavourite}
+          className={`absolute right-3 top-3 flex size-10 items-center justify-center rounded-full shadow-sm transition ${
+            isFavourite
+              ? "bg-rose-600 text-white"
+              : "bg-white/90 text-slate-600 hover:bg-white hover:text-rose-600"
+          }`}
+        >
+          <Heart size={18} fill={isFavourite ? "currentColor" : "none"} />
+        </button>
       </div>
-    </motion.div>
+
+      <div className="flex flex-1 flex-col px-2 pb-2 pt-4">
+        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          {product.brand || product.category}
+        </p>
+        <Link to={`/products/${product.id}`} className="mt-1">
+          <h2 className="line-clamp-2 min-h-12 font-medium leading-6 text-slate-900 transition hover:text-emerald-800">
+            {product.title}
+          </h2>
+        </Link>
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <div>
+            <span className="font-semibold text-slate-900">{currency.format(product.price)}</span>
+            {discountedPrice && (
+              <span className="ml-2 text-xs text-slate-400 line-through">
+                {currency.format(discountedPrice)}
+              </span>
+            )}
+          </div>
+          <span className="inline-flex items-center gap-1 text-sm text-slate-600">
+            <Star size={15} className="fill-amber-400 text-amber-400" />
+            {product.rating.toFixed(1)}
+          </span>
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            dispatch(addToCart(product));
+            showSuccess("Added to cart", { id: "cart-toast" });
+          }}
+          className="mt-4 w-full rounded-full bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-slate-300"
+        >
+          {product.stock === 0 ? "Unavailable" : "Add to cart"}
+        </button>
+      </div>
+    </article>
   );
 }

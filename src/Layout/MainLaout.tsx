@@ -10,12 +10,11 @@ export default function MainLaout() {
 
       <Navbar />
 
-      {/* المحتوى */}
-      {/* <PageWrapper> */}
+
       <main className="flex-1">
         <Outlet />
       </main>
-      {/* </PageWrapper> */}
+
 
       <Footer />
       

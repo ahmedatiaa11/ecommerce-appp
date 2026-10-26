@@ -1,7 +1,4 @@
-type Category = {
-  slug: string;
-  name: string;
-};
+import type { Category } from "../../Types/Product";
 
 type catProps = {
   categories: Category[] | undefined;
@@ -25,7 +22,7 @@ export default function CategoryFilter({
 }: catProps) {
   return (
     
-    <div className= " ">
+    <div className="min-w-48">
       <Select
         value={selectedCategory}
         onValueChange={onCategoryChange}
@@ -36,9 +33,9 @@ export default function CategoryFilter({
         </SelectTrigger>
 
         <SelectContent className=" rounded-lg shadow-lg bg-white">
-          <SelectItem value="all">all </SelectItem>
+          <SelectItem value="all">All categories</SelectItem>
           {categories?.map((item) => (
-            <SelectItem key={item.slug} value={item.name}>
+            <SelectItem key={item.slug} value={item.slug}>
               {item.name}
             </SelectItem>
           ))}

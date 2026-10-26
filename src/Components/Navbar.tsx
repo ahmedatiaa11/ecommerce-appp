@@ -1,273 +1,91 @@
-import { NavLink } from "react-router-dom";
+import { Heart, LogOut, Search, ShoppingCart } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../Redux/ReduxHooks";
 import { selectCartTotalQuantity } from "../Redux/CartSlice";
 import { selectFavorites } from "../Redux/FavouriteSlice";
 import { isAuth, logOut } from "../Redux/AuthSlice";
 import Sheet from "../Components/Sheet";
 import Container from "../ReusableComp/Container";
-import { Heart, HeartCrack, HeartIcon, Search } from "lucide-react";
-import { SearchInput } from "./UI/Search";
-import { fadeUp } from "../animations/fadeUp";
-import { motion } from "framer-motion";
 
+const linkClass = ({ isActive }: { isActive: boolean }) =>
+  `text-sm font-medium transition ${
+    isActive ? "text-emerald-800" : "text-slate-600 hover:text-emerald-800"
+  }`;
 
 export default function Navbar() {
   const cartCount = useAppSelector(selectCartTotalQuantity);
-  const favourites = useAppSelector(selectFavorites);
-  const isAuthi = useAppSelector(isAuth);
+  const favoriteCount = useAppSelector(selectFavorites).length;
+  const authenticated = useAppSelector(isAuth);
   const dispatch = useAppDispatch();
 
   return (
-    <header className="sticky top-0 left-0 z-30  " >
-    <Container>
-    <motion.nav {...fadeUp(0)} className=" z- flex items-center rounded-2xl justify-between overflow-hidden 
-     bg-white/50 px-3 lg:px-6 py-2 md:py-4   text-white shadow-md backdrop-blur-lg">
-      {/* Mobile Menu */}
-      
-      <div className="lg:hidden text-black ">
-        <Sheet   /> 
-      </div>
+    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-[#f8f9f6]/90 backdrop-blur-xl">
+      <Container>
+        <nav className="flex min-h-18 items-center justify-between gap-4" aria-label="Main navigation">
+          <div className="flex items-center gap-3 lg:hidden">
+            <Sheet />
+          </div>
+          <Link to="/products" className="shrink-0 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+            ahm<span className="text-emerald-700">3t</span> shop
+          </Link>
 
-      {/* Logo */}
-      <h1 className=" cursor-pointer text-black 
-      text-2xl font-light   hover:text-cyan-500 transition  tracking-widest">
-        AHM3T SHOP
-
-
-      </h1>
-
-      {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center  gap-6">
-
-        <NavLink
-          to="/products"
-          className={({ isActive }) =>
-             ` transition-colors text-black  duration-300 font-light text-2xl
-           tracking-widest  hover:text-cyan-600
-        ${isActive
-              ? " border-b-2   "
-              : ' ' } ` 
-          }
-        >
-          HOME
-        </NavLink>
-
-        <NavLink
-          to="/favouites"
-          className="relative group "
-        >
-          <div className="text-2xl text-red-500">
-            <Heart className="text-black"/>
+          <div className="hidden items-center gap-8 lg:flex">
+            <NavLink to="/products" className={linkClass}>Shop</NavLink>
+            <NavLink to="/favorites" className={linkClass}>Favorites</NavLink>
+            <NavLink to="/search" className={linkClass}>Search</NavLink>
           </div>
 
-          {favourites.length > 0 && (
-            <span className="absolute -right-4 -top-3 rounded-full bg-red-500 px-1.5 py-0.5 text-xs">
-              {favourites.length}
-            </span>
-          )}
-        </NavLink>
-
-      </div>
-
-      {/* Actions */}
-      <div className="flex items-center gap-2.5 md:gap-4">
-
-        {/* Cart (كل الشاشات) */}
-        <NavLink
-          to="/cart"
-          className="relative group "
-        >
-          <span className="text-2xl  transition group-hover:scale-110">
-            🛒
-          </span>
-
-          {cartCount > 0 && (
-            <span className="absolute -right-3 -top-2 rounded-full bg-cyan-500 px-1.5 py-0.5 text-xs">
-              {cartCount}
-            </span>
-          )}
-        </NavLink>
-        
-        <NavLink to={"search"}>
-          {/* <SearchInput/> */}
-          <Search className="text-black/50"/>
-        </NavLink>
-
-        {/* Desktop Auth */}
-        {!isAuthi ? (
-          <NavLink
-            to="/login"
-            className="hidden rounded-lg   px-5 py-1.5 font-normal text-lg shadow-lg  text-black 
-             border-black/40 transition duration-400 hover:bg-cyan-600 hover:text-white lg:block"
-          >
-            Login
-          </NavLink>
-        ) : (
-          <button
-            onClick={() => dispatch(logOut())}
-            className="hidden rounded-2xl bg-black/50 px-3 py-1.5  transition hover:bg-cyan-600 
-             lg:block"
-          >
-            LogOut
-          </button>
-        )}
-
-      </div>
-     
-    </motion.nav>
-     </Container>
-     </header>
+          <div className="flex items-center gap-1 sm:gap-2">
+            <Link
+              to="/search"
+              aria-label="Search"
+              className="flex size-10 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200 lg:hidden"
+            >
+              <Search size={19} />
+            </Link>
+            <Link
+              to="/favorites"
+              aria-label={`Favorites${favoriteCount ? `, ${favoriteCount} items` : ""}`}
+              className="relative flex size-10 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200"
+            >
+              <Heart size={20} />
+              {favoriteCount > 0 && (
+                <span className="absolute right-0 top-0 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-rose-600 px-1 text-[11px] font-semibold text-white">
+                  {favoriteCount}
+                </span>
+              )}
+            </Link>
+            <Link
+              to="/cart"
+              aria-label={`Shopping cart${cartCount ? `, ${cartCount} items` : ""}`}
+              className="relative flex size-10 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200"
+            >
+              <ShoppingCart size={20} />
+              {cartCount > 0 && (
+                <span className="absolute right-0 top-0 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-emerald-700 px-1 text-[11px] font-semibold text-white">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+            {authenticated ? (
+              <button
+                type="button"
+                onClick={() => dispatch(logOut())}
+                className="ml-1 hidden items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900 sm:inline-flex"
+              >
+                <LogOut size={16} /> Log out
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="ml-1 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
+              >
+                Log in
+              </Link>
+            )}
+          </div>
+        </nav>
+      </Container>
+    </header>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Link, NavLink } from "react-router-dom"
-// import { useAppDispatch, useAppSelector } from "../Redux/ReduxHooks"
-// import { selectCartTotalQuantity } from "../Redux/CartSlice"
-// import { selectFavorites } from "../Redux/FavouriteSlice"
-// import { isAuth, logOut } from "../Redux/AuthSlice"
-// // import { logOut, selectIsAuth } from "../Redux/authSlice"
-// import Sheet from "../Components/Sheet"
-
-
-
-// export default function Navbar() {
-//    const cartCount = useAppSelector(selectCartTotalQuantity)
-//    const favourits = useAppSelector(selectFavorites)
-//    const isAuthi = useAppSelector(isAuth)
-//    const dispatch = useAppDispatch()
-
-//   return (
-//   <nav className="bg-gray-900/80 backdrop-blur-md text-white px-6 py-4 flex justify-between items-center sticky top-0 left-0 w-full z-50 shadow-md">
-
-//     {/* Logo */}
-//     <h1 className="text-2xl font-bold tracking-wide cursor-pointer hover:text-yellow-400 transition">
-//       AHMED'S SHOP
-
-//     </h1>
-//     {/* <Link to="/sheet">Sheet For Testing </Link> */}
-//     {/* <div className="lg:hidden md:hidden " > <Sheet/> </div> */}
-
-//     {/* 🔍 SEARCH INPUT PLACE (حط search هنا)
-//     <div className="flex-1 mx-6">
-//         <input 
-//           type="text" 
-//           placeholder="Search products..." 
-//           className="w-full px-4 py-2 rounded-lg text-white outline-none bg-gray-950 placeholder:text-gray-400"
-          
-//         />
-//     </div> */}
-
-//     {/* Links */}
-//     <div className="flex items-center gap-6 hidden  md:flex">
-
-//       {/* Home */}
-//       <NavLink
-//         to="/products"
-//         className={({ isActive }) =>
-//           `relative transition ${
-//             isActive
-//               ? "text-yellow-400 font-semibold"
-//               : "hover:text-gray-300"
-//           }`
-//         }
-//       >
-//         Home
-//       </NavLink>
-
-//       {/* Favorites */}
-//       <NavLink
-//         to="/favouites"
-//         className="relative group"
-//       >
-//         <span className="text-lg group-hover:scale-110 transition inline-block">
-//           ❤️
-//         </span>
-
-//         {favourits.length > 0 && (
-//           <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 py-0.5 rounded-full animate-bounce">
-//             {favourits.length}
-//           </span>
-//         )}
-//       </NavLink>
-
-//       {/* Cart */}
-//       {/* <NavLink
-//         to="/cart"
-//         className="relative group"
-//       >
-//         <span className="text-lg group-hover:scale-110 transition inline-block">
-//           🛒
-//         </span>
-
-//         {cartCount > 0 && (
-//           <span className="absolute -top-2 -right-3 bg-green-500 text-xs px-1.5 py-0.5 rounded-full animate-bounce">
-//             {cartCount}
-//           </span>
-//         )}
-//       </NavLink> */}
-
-//       {/* Auth */}
-//       {/* {!isAuthi ? (
-//         <NavLink
-//           to="/login"
-//           className="bg-yellow-400 text-black px-4 py-1.5 rounded-lg font-medium hover:bg-yellow-300 transition"
-//         >
-//           Login
-//         </NavLink>
-//       ) : (
-//         <button
-//           onClick={() => dispatch(logOut())}
-//           className="bg-black text-white px-4 py-1.5 rounded-lg hover:bg-red-600 transition active:scale-95"
-//         >
-//           Logout
-//         </button>
-//       )} */}
-//     </div>
-//     <div className="flex items-center gap-4 ">
-//       {/* Cart */}
-//       <NavLink
-//         to="/cart"
-//         className="relative group"
-//       >
-//         <span className="text-lg group-hover:scale-110 transition inline-block">
-//           🛒
-//         </span>
-
-//         {cartCount > 0 && (
-//           <span className="absolute -top-2 -right-3 bg-green-500 text-xs px-1.5 py-0.5 rounded-full animate-bounce">
-//             {cartCount}
-//           </span>
-//         )}
-//       </NavLink>
-//        {!isAuthi ? (
-//         <NavLink
-//           to="/login"
-//           className="bg-yellow-400 text-black px-4 py-1.5 rounded-lg font-medium hover:bg-yellow-300 transition hidden md:flex "
-//         >
-//           Login
-//         </NavLink>
-//       ) : (
-//         <button
-//           onClick={() => dispatch(logOut())}
-//           className="bg-black text-white px-4 py-1.5 rounded-lg hover:bg-red-600 transition active:scale-95  hidden md:flex "
-//         >
-//           Logout
-//         </button>
-//       )}
-//     </div>
-//         <div className="lg:hidden md:hidden " > <Sheet/> </div>
-
-//   </nav>
-// )
-// }
