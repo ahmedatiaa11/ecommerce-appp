@@ -1,21 +1,27 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type Product } from "../Types/Product"; 
+import { type Product } from "../Types/Product";
 import type { RootState } from "./Store";
 
-type CartItem = Product & { quantity: number };
+type CartItem = Product & { quantity: number }
+
 interface CartState {
   items: CartItem[];
 }
 
-const initialState: CartState = { items: [] };
+const initialState: CartState = {
+  items: [] 
+};
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<Product & { quantity?: number }>) => {
+
       const maxQuantity = action.payload.stock ?? Number.POSITIVE_INFINITY;
       if (maxQuantity <= 0) return;
+
       const quantity = Math.min(action.payload.quantity ?? 1, maxQuantity);
+      
       const existing = state.items.find((item) => item.id === action.payload.id);
       if (existing) {
         existing.quantity = Math.min(existing.quantity + quantity, maxQuantity);
@@ -56,10 +62,14 @@ export const {
 
 export default cartSlice.reducer;
 
-export const selectCartItems = (state: RootState) => state.cart.items;
+export const selectCartItems = (state: RootState) => state.cart.items; 
+//بترجع المنتجات الموجودة في السلة.
+
 export const selectCartTotalQuantity = (state: RootState) =>
   state.cart.items.reduce((total, item) => total + item.quantity, 0);
+
 export const selectCartTotalPrice = (state: RootState) =>
   state.cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
+
 export const selectIsInCart = (id: number) => (state: RootState) =>
   state.cart.items.some((item) => item.id === id);

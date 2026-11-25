@@ -1,6 +1,6 @@
-import { Link, Navigate, useLocation } from "react-router-dom";
-import { Check, PackageCheck } from "lucide-react";
-import type { CheckoutOrder } from "../Types/Order";
+import { Link, Navigate, useLocation } from "react-router-dom"
+import { Check, PackageCheck } from "lucide-react"
+import type { CheckoutOrder } from "../Types/Order"
 
 type ConfirmationState = { order?: CheckoutOrder };
 const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
@@ -44,7 +44,8 @@ export default function OrderConfirmationPage() {
             ))}
           </div>
           <div className="flex justify-between border-t border-slate-200 pt-4 font-semibold text-slate-900">
-            <span>Total</span><span>{currency.format(order.total)}</span>
+            <span>Total</span>
+            <span>{currency.format(order.total)}</span>
           </div>
         </div>
         <p className="mt-5 text-sm text-slate-500">

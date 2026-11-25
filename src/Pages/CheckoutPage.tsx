@@ -7,7 +7,7 @@ import { clearCart, selectCartItems, selectCartTotalPrice } from "../Redux/CartS
 import type { CheckoutOrder } from "../Types/Order";
 
 type CheckoutFormData = CheckoutOrder["customer"];
-const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });  
 
 export default function CheckoutPage() {
   const orderId = useId().replace(/[^a-z0-9]/gi, "").toUpperCase();
@@ -24,6 +24,7 @@ export default function CheckoutPage() {
   } = useForm<CheckoutFormData>();
 
   if (items.length === 0 && !orderSubmitted) return <Navigate to="/cart" replace />;
+  //عشان لو مستخدم كتب checkout page مباشرة من غير ما يكون فيه منتجات في السلة، يرجعوه لصفحة السلة.
 
   const submitOrder = (customer: CheckoutFormData) => {
     const order: CheckoutOrder = {

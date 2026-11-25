@@ -82,7 +82,7 @@ export default function CartPage() {
               </Link>
 
               <div className="flex items-center justify-between gap-4 sm:justify-end">
-                <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 p-1">
+                <div className="flex items-center gap-3 rounded-full border border-slate-200 p-1">
                   <button
                     type="button"
                     onClick={() => dispatch(decreaseQuantity(item.id))}
@@ -126,11 +126,17 @@ export default function CartPage() {
           </button>
         </section>
 
+
+
+
+
+
         <aside className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:sticky lg:top-28">
           <h2 className="text-xl font-semibold text-slate-900">Order summary</h2>
           <div className="mt-6 space-y-4 text-sm">
             <div className="flex justify-between text-slate-600">
-              <span>Subtotal</span><span>{currency.format(subtotal)}</span>
+              <span>Subtotal</span>
+              <span>{currency.format(subtotal)}</span>
             </div>
             <div className="flex justify-between text-slate-600">
               <span>Estimated shipping</span>

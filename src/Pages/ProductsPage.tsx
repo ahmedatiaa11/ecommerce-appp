@@ -13,6 +13,7 @@ export default function ProductsPage() {
   const { data: categories } = useCategories();
   const selectedCategory = searchParams.get("category") || "all";
   const search = searchParams.get("q") || "";
+
   const {
     data,
     fetchNextPage,
@@ -42,10 +43,10 @@ export default function ProductsPage() {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   return (
-    <main className="pb-16">
+    <main className="pb-16 ">
       <section className="mx-4 mt-5 overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white sm:mx-6 lg:mx-auto lg:max-w-7xl">
-        <Container>
-          <div className="grid items-center gap-8 py-12 sm:py-16 lg:grid-cols-[1.2fr_0.8fr] lg:py-20">
+        {/* <Container>
+          <div className="grid items-center gap-8 py-12 sm:py-16 lg:grid-cols-[1.2fr_0.8fr] lg:py-15">
             <div className="max-w-2xl">
               <p className="mb-4 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-emerald-200">
                 The everyday edit
@@ -69,7 +70,7 @@ export default function ProductsPage() {
                 <PackageCheck className="text-emerald-300" size={28} />
                 <p className="text-lg font-medium">Curated finds</p>
               </div>
-              <div className="mt-10 flex min-h-40 flex-col justify-between rounded-3xl bg-emerald-400 p-6 text-slate-950">
+              <div className="mt-0 flex min-h-40 flex-col justify-between rounded-3xl bg-emerald-400 p-6 text-slate-950">
                 <Truck size={28} />
                 <p className="text-lg font-medium">Simple checkout</p>
               </div>
@@ -82,11 +83,11 @@ export default function ProductsPage() {
               </div>
             </div>
           </div>
-        </Container>
+        </Container> */}
       </section>
 
       <Container>
-        <section id="products" className="scroll-mt-28 pt-12">
+        <section id="products" className="scroll-mt-28 pt-10">
           <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">

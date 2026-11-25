@@ -4,6 +4,7 @@ type props ={
   totalPages : number ,
   onPageChange : (page : number) => void
 }
+
 export default function Pagination({ currentPage, totalPages, onPageChange }: props) {
   return (
     <div>

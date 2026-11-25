@@ -8,7 +8,7 @@ import Sheet from "../Components/Sheet";
 import Container from "../ReusableComp/Container";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
-  `text-sm font-medium transition ${
+  `text-md font-medium transition ${
     isActive ? "text-emerald-800" : "text-slate-600 hover:text-emerald-800"
   }`;
 

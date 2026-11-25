@@ -15,21 +15,23 @@ const SearchInput = lazy(() =>
   import("../Components/UI/Search").then((module) => ({ default: module.SearchInput })),
 );
 
-const pageFallback = (
+const pageFallback = 
   <div className="mx-auto max-w-7xl px-6 py-20 text-center text-slate-500" role="status">
     Loading page…
   </div>
-);
-const suspense = (children: React.ReactNode) => (
-  <Suspense fallback={pageFallback}>{children}</Suspense>
-);
+
+const suspense = (Children: React.ReactNode) => <Suspense fallback={pageFallback}>{Children}</Suspense>
+
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLaout />,
     children: [
-      { index: true, element: <Navigate to="/products" replace /> },
+      { index: true, element: <Navigate to="/products" replace /> }, 
+      // معناها: دي اسمها Root Redirect (إعادة توجيه رئيسية).
+      // "أول ما الشخص يدخل على الصفحة الرئيسية، حوله فوراً على صفحة المنتجات (/products)".
+
       { path: "products", element: suspense(<ProductsPage />) },
       { path: "products/:id", element: suspense(<ProductDetails />) },
       {
@@ -57,10 +59,14 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      
       { path: "favouites", element: <Navigate to="/favorites" replace /> },
+
       { path: "login", element: suspense(<LoginPage />) },
       { path: "search", element: suspense(<SearchInput />) },
       { path: "*", element: <Navigate to="/products" replace /> },
     ],
   },
 ]);
+
+

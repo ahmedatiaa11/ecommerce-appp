@@ -14,7 +14,6 @@ export const getProducts = async (pageParam:number): Promise<ProductResponse> =>
   return data
 }
 
-
 export const getElementById = async (id: number): Promise<Product> =>{ 
 
   const {data} = await api.get<Product>(`/products/${id}`) 
@@ -46,3 +45,4 @@ export const searchProducts = async (search : string , page : number): Promise<P
   const {data} = await api.get<ProductResponse>(`/products/search` , {params:{q : search , limit , skip}})
   return data
 }
+  

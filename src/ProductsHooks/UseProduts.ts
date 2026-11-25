@@ -6,7 +6,6 @@ export const useProducts = (
   search: string
 ) => {
   return useInfiniteQuery({
-
     queryKey: ["products",category,search],
     queryFn: ({ pageParam }) => {
       if (search) {
@@ -69,7 +68,65 @@ export const useProducts = (
 
 
 
+/*
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { getElementByCategory, getProducts, searchProducts } from "../Api/products.api"
 
+export const useProducts = (
+  category: string,
+  search: string
+) => {
+  return useInfiniteQuery({
+    queryKey: ["products",category,search],
+    queryFn: ({ pageParam }) => {
+      if (search) {
+        return searchProducts(
+          search,
+          pageParam
+        )
+      }
+
+      if (category === "all") {
+        return getProducts(
+          pageParam
+        )
+      }
+
+      return getElementByCategory(
+        category,
+        pageParam
+      )
+    },
+
+    initialPageParam: 1,
+    enabled: category !== "" || search.trim().length > 0,
+
+    getNextPageParam:
+      (lastPage, pages) => {
+        
+        const totalPages =
+          Math.ceil(
+            lastPage.total /
+            lastPage.limit
+          )
+
+        if (
+          pages.length < totalPages
+        ) {
+          return pages.length + 1
+        }
+
+        return undefined          
+      }
+
+  })
+}
+
+
+
+
+
+*/
 
 
 
